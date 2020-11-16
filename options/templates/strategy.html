@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article >
+        <div class="media-body">
+            <h2><a class="article-title">{{ title }}</a></h2>
+            <h2><a class="article-content" href="{{ url_for('simulation', chosen_strategy='IronCodor') }}">Iron Codor Strategy</a></h2>
+            <h2><a class="article-content" href="#">Manually</a></h2>
+        </div>
+    </article>
+{% endblock content %}

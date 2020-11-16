@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{title}}</legend>
+
+                <div class="form-group">
+                    <legend class="border-bottom mb-4">{{ form.price_estimation.question }}</legend>
+                    {% if form.price_estimation.errors %}
+                        {{ form.price_estimation(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.price_estimation.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.price_estimation(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <legend class="border-bottom mb-4">{{ form.estimation_likelihood.question }}</legend>
+                    {% if form.estimation_likelihood.errors %}
+                        {{ form.estimation_likelihood(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.estimation_likelihood.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.estimation_likelihood(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <legend class="border-bottom mb-4">{{ form.risk_appetite.question }}</legend>
+                    {% if form.risk_appetite.errors %}
+                        {{ form.risk_appetite(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.risk_appetite.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.risk_appetite(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <legend class="border-bottom mb-4">{{ form.stock_increase_likelihood.question }}</legend>
+                    {% if form.stock_increase_likelihood.errors %}
+                        {{ form.stock_increase_likelihood(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.stock_increase_likelihood.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.stock_increase_likelihood(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <legend class="border-bottom mb-4">{{ form.stock_decrease_likelihood.question }}</legend>
+                    {% if form.stock_decrease_likelihood.errors %}
+                        {{ form.stock_decrease_likelihood(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.stock_decrease_likelihood.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.stock_decrease_likelihood(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+<h1>{{ date }}</h1>

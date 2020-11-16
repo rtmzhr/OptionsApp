@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article >
+        <div class="media-body">
+            <h2><a class="article-title">{{ title }}</a></h2>
+            {% for date in dates %}
+            <h2><a class="article-title" href="{{ url_for('date', date_text=date) }}">{{ date }}</a></h2>
+            {% endfor %}
+        </div>
+    </article>
+
+{% endblock content %}

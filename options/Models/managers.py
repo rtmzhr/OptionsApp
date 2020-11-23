@@ -80,17 +80,15 @@ class OptionData:
         calls = pd.DataFrame([entry.text for entry in self.soup.find_all('td', {
             'class': 'data-col0 Ta(end) Pstart(10px) call-in-the-money_Bgc($hoverBgColor)'
                      ' Bdstartw(8px) Bdstarts(s) Bdstartc(t) call-in-the-money_Bdstartc($linkColor)'})])
-        strikes = pd.DataFrame(
-            [entry.text for entry in self.soup.find_all(
-                'td', {'class': "data-col5 Ta(c) Px(10px) BdX Bdc($seperatorColor)"})])
+        strikes = [entry.text for entry in self.soup.find_all(
+                'td', {'class': "data-col5 Ta(c) Px(10px) BdX Bdc($seperatorColor)"})]
         puts = pd.DataFrame([entry.text for entry in self.soup.find_all('td', {
             'class': "data-col6 Ta(end) Pstart(10px) put-in-the-money_Bgc($hoverBgColor)"})])
-        data = pd.concat([calls, strikes, puts], axis=1)
+        data = pd.concat([calls, pd.DataFrame(strikes), puts], axis=1)
         data.columns = ["Calls", "Strikes", "Puts"]
         data = data.replace('-', 0)
         self.data = data
-        self.strikes_array = np.array(strikes).astype('float')
-        self.strikes_array = self.strikes_array.reshape((1, len(self.data.index)))[0]
+        self.strikes_array = [float(i) for i in strikes]
 
     def get_option_index(self, strike, offset=0):
         length = len(self.strikes_array)

@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, session
 from options import app
 from options.forms import InterviewForm, SimulateForm
-from options.Models.managers import OptionsManager, option_data
+from options.Models.managers import OptionsManager, option_data, current_stock_price
 from options.Models.strategies import IronCodorStrategy
 
 dates = option_data.get_dates_texts()
@@ -10,7 +10,7 @@ dates = option_data.get_dates_texts()
 @app.route('/home')
 @app.route('/')
 def home():
-    return render_template('home.html', dates=dates, title="Choose Date:")
+    return render_template('home.html', dates=dates, current_stock_price=current_stock_price, title="Choose Date:")
 
 
 @app.route('/date/<string:date_text>', methods=['GET', 'POST'])
@@ -27,12 +27,13 @@ def date(date_text):
             'Risk Appetite': int(form.risk_appetite.data)
         }
         return redirect(url_for('simulation', chosen_strategy='IronCodor'))
-    return render_template('interview.html', date=date_text, form=form, title='Interview')
+    return render_template('interview.html', current_stock_price=current_stock_price,
+                           date=date_text, form=form, title='Interview')
 
 
 @app.route('/strategy')
 def strategy():
-    return render_template('strategy.html', date=session.get('date')
+    return render_template('strategy.html', current_stock_price=current_stock_price, date=session.get('date')
                            , title="Choose Strategy:")
 
 
@@ -50,4 +51,4 @@ def simulation(chosen_strategy):
         else:
             flash(f'The simulation indicated that you will gain {profit}$ in total', 'danger')
     return render_template('simulation.html', strategy=chosen_strategy, form=form, date=session.get('date'),
-                           option_manager=option_manager, title="Simulation")
+                           option_manager=option_manager, title="Simulation", current_stock_price=current_stock_price)
